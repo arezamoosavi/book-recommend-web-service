@@ -12,7 +12,7 @@ class Recommend(Resource):
     
     def get(self,book: str, number:int=6):
 
-        books = recBooks(book=book, k=number)
+        books, called = recBooks(book=book, k=number)
         # recTask = async_recommend.delay(nook=book, k=number)
         # books, called = recTask.wait(timeout=None, interval=0.5)
 
