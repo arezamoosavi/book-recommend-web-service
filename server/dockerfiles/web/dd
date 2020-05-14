@@ -1,0 +1,48 @@
+FROM python:3.7.6-alpine
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV PIP_FORMAT=legacy
+
+RUN apk update && apk add  --no-cache --virtual build-dependencies libc-dev build-base \
+    python3-dev libxml2 libxml2-dev libxslt libxslt-dev libjpeg-turbo-dev zlib-dev musl-dev \
+    freetype-dev libpng-dev openblas-dev libffi-dev gcc libressl-dev
+
+
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk --update add --no-cache --virtual .build-deps \
+    gcc \
+    freetype-dev
+
+RUN apk add --update lapack-dev python py-pip python-dev &&\
+    apk add --update linux-headers
+
+# Install dependencies
+RUN apk add --no-cache --virtual .build-deps \
+    gfortran \
+    musl-dev \
+    g++ \
+    make &&\
+    ln -s /usr/include/locale.h /usr/include/xlocale.h
+
+RUN addgroup -S xuzer && adduser -S -G xuzer xuzer
+
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir numpy scipy pandas scikit-learn
+
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
+
+
+RUN mkdir -p /main
+
+WORKDIR /main
+
+COPY ./dockerfiles/web/runserver.sh /runserver.sh
+RUN chmod +x /runserver.sh
+
+CMD [ "/runserver.sh" ]
+EXPOSE 5000
+
+# ENTRYPOINT ["/runserver.sh"]
