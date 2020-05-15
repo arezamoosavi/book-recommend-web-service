@@ -62,4 +62,4 @@ def index():
 
 
 #endpoints
-# api.add_resource(Recommend, '/recommend/<string:book>/<int:number>')
+api.add_resource(Recommend, '/recommend/<string:book>/<int:number>')

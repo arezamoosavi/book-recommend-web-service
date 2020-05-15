@@ -3,14 +3,15 @@ from cassandra.cqlengine import management
 def sync_db(db):
 
     keyspaces = ['book_keyspace',]
-    conns = ['book_cluster',]
+    conns = ['node_0', 'node_1']
 
     # registers your connections
     # ...
 
     # create all keyspaces on all connections
     for ks in keyspaces:
-        management.create_simple_keyspace(ks, connections=conns)
+        management.create_keyspace_simple(name=ks,
+         replication_factor=2, durable_writes=True, connections=conns)
 
     # define your Automobile model
     # ...

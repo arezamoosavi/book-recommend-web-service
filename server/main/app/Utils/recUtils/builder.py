@@ -4,14 +4,6 @@ def load_data():
     return read_csv('app/Utils/recUtils/goodreads_data.csv',index_col=0)
 books_df = load_data()
 
-# from pandas import read_pickle
-# books_df = read_pickle("app/Utils/recUtils/goodreads_data.pkl")
-
-# Load data (deserialize)
-# with open('app/Utils/recUtils/sim_matrix.pickle', 'rb') as handle:
-#     from pickle import load
-#     cosine_sim_corpus = load(handle)
-cosine_sim_corpus = None
 
 def look_for_book(df, name):
     return df[df.title.str.contains(name.lower(), na=False)]
@@ -34,5 +26,16 @@ def getDictResult(bookInx):
         x = bookInx[i]
         d = {i+1: {'book' : books_df.title.iloc[x], 'authors' : books_df.authors.iloc[x]}} 
         res.append(d)
+    return res
+
+def getSimilarIndx(id, k):
+    return books_df.sample(k).index.to_list()
+
+
+def getListResult(bookInx):
+    res = []
+    for i in range(len(bookInx)):
+        x = bookInx[i]
+        res.append(books_df.title.iloc[x])
     return res
 
