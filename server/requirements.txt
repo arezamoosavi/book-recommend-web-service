@@ -6,7 +6,10 @@ Flask-Classful==0.14.2
 Flask-Login==0.4.1
 Flask-Migrate==2.5.2
 Flask-Script
-flask-cqlalchemy
+
+cassandra-driver==3.14.0
+cqlsh==5.0.4
+cqlengine==0.21.0
 
 gunicorn==20.0.4
 

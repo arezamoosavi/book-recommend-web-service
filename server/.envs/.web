@@ -1,12 +1,11 @@
 DEBUG=True
 SECRET_KEY=a-very-secret-key-with => :-))^_^
-DATABASE=db
-USER=user
-PASSWORD=password
-HOST=postgres
-PORT=5432
-FLASK_APP=manage.py
 
-POSTGRES_URL=postgresql+psycopg2://user:password@postgres:5432/db
+CASSANDRA=cassandra:9042
+H_CASSANDRA=cassandra
+P_CASSANDRA=9042
+CASSANDRA_KEY_SPACE=book_keyspace
+
+
 REDIS_URL=redis://redis:6379/0
 RMQ_URL=amqp://admin:mypass@rabbitmq:5672

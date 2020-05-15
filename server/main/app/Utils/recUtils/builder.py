@@ -8,9 +8,10 @@ books_df = load_data()
 # books_df = read_pickle("app/Utils/recUtils/goodreads_data.pkl")
 
 # Load data (deserialize)
-with open('app/Utils/recUtils/sim_matrix.pickle', 'rb') as handle:
-    from pickle import load
-    cosine_sim_corpus = load(handle)
+# with open('app/Utils/recUtils/sim_matrix.pickle', 'rb') as handle:
+#     from pickle import load
+#     cosine_sim_corpus = load(handle)
+cosine_sim_corpus = None
 
 def look_for_book(df, name):
     return df[df.title.str.contains(name.lower(), na=False)]

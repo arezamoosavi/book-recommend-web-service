@@ -24,8 +24,6 @@ RUN pip install --no-cache-dir numpy scipy pandas scikit-learn
 COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
 
-
-
 RUN mkdir -p /main
 
 WORKDIR /main

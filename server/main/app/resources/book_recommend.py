@@ -2,6 +2,8 @@ import logging
 from flask_restful import Resource
 from flask import jsonify, request, json, make_response
 from app.Utils.recUtils.RecEngine import recBooks
+from app.models.book import BooksModel
+
 #loging
 logging.basicConfig(filename='logfiles.log',
                     level=logging.DEBUG,
@@ -30,11 +32,31 @@ class Recommend(Resource):
         #agent
         user_agent = request.user_agent.string
         
+
+        # db
+        new_books = BooksModel(book=called[0], authors=called[1], rec_books=books,
+                               state=rec_success,ip=ip_address, agent=user_agent)
+        
+        print(new_books.items())
+        
+        try:
+            new_books.save()
+
+        except Exception as e:
+            logging.error('Error! {}'.format(e))
+
+            return {"message": e}, 400
+
+        print('\n'*5,dict(new_books),'\n'*5)
+        
+        ##
+
+
         retJson = {
             "ip_address": ip_address,
             "status":200,
-            "books": books,
-            "for": "book: {0}, author: {1}".format(called[0], called[1])
+            "books": new_books['rec_books'],
+            "for": "book: {0}, authors: {1}".format(new_books['book'], new_books['authors'])
              }
     
         return jsonify(retJson)
