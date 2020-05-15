@@ -2,6 +2,7 @@ import logging
 from flask_restful import Resource
 from flask import jsonify, request, json, make_response
 from app.Utils.recUtils.RecEngine import recBooks
+from app.Utils.celeryUtils.tasks import async_recommend
 from app.models.book import BooksModel
 
 #loging
@@ -14,9 +15,9 @@ class Recommend(Resource):
     
     def get(self,book: str, number:int=6):
 
-        books, called = recBooks(book=book, k=number)
-        # recTask = async_recommend.delay(nook=book, k=number)
-        # books, called = recTask.wait(timeout=None, interval=0.5)
+        # books, called = recBooks(book=book, k=number)
+        recTask = async_recommend.delay(book=book, k=number)
+        books, called = recTask.wait(timeout=None, interval=0.5)
 
         if books:
             rec_success = True
