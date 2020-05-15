@@ -61,15 +61,18 @@ class Recommend(Resource):
     
         return jsonify(retJson)
 
-# class SearchHistory(Resource):
-#     def get(self):
+class SearchHistory(Resource):
+    def get(self):
         
-#         #get ip address
-#         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-#             ip_address=request.environ['REMOTE_ADDR']
-#         else:
-#             ip_address=request.environ['HTTP_X_FORWARDED_FOR'] # if behind a proxy
+        #get ip address
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            ip_address=request.environ['REMOTE_ADDR']
+        else:
+            ip_address=request.environ['HTTP_X_FORWARDED_FOR'] # if behind a proxy
 
-#         search_res = MusicModel.find_by_ip(ip=ip_address)
+        search_res = BooksModel.find_all()
 
-#         return jsonify({'data': [result.serialized for result in search_res]})
+        print(list(search_res))
+        
+
+        return jsonify({"history": [dict(res) for res in search_res]})

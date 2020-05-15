@@ -20,7 +20,7 @@ class BooksModel(Model):
 
     @classmethod
     def find_by_ip(cls, ip: str):
-        return cls.objects.filter(ip=ip).all()
+        return cls.objects.filter(ip=ip)
 
     @classmethod
     def find_all(cls):
@@ -30,6 +30,7 @@ class BooksModel(Model):
     def find_by_book(cls, book: str):
         return cls.objects.filter(book=book).first()
     
+    @property
     def get_data(self):
         return {
             'id': str(self.id),
