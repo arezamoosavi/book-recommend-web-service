@@ -4,6 +4,7 @@ from flask import jsonify, request, json, make_response
 from app.Utils.recUtils.RecEngine import recBooks
 from app.Utils.celeryUtils.tasks import async_recommend
 from app.models.book import BooksModel
+from app.Utils.Auth.TokenConfig import Auth
 
 #loging
 logging.basicConfig(filename='logfiles.log',
@@ -13,6 +14,7 @@ logging.basicConfig(filename='logfiles.log',
 
 class Recommend(Resource):
     
+    @Auth.auth_required
     def get(self,book: str, number:int=6):
 
         # books, called = recBooks(book=book, k=number)
@@ -63,6 +65,8 @@ class Recommend(Resource):
         return jsonify(retJson)
 
 class SearchHistory(Resource):
+
+    @Auth.auth_required
     def get(self):
         
         #get ip address
@@ -71,7 +75,7 @@ class SearchHistory(Resource):
         else:
             ip_address=request.environ['HTTP_X_FORWARDED_FOR'] # if behind a proxy
 
-        search_res = BooksModel.find_all()
+        search_res = BooksModel.find_by_ip(ip=ip_address)
 
         print(list(search_res))
         

@@ -10,17 +10,17 @@ class BooksModel(Model):
     __table_name__ = 'book'
 
     id = columns.UUID(primary_key=True, default=uuid4)
+    ip = columns.Text(index=True, default=None)
     time = columns.DateTime(default=datetime.utcnow)
-    book = columns.Text(required=True, default=None)
+    book = columns.Text(index=True, required=True, default=None)
     authors = columns.Text(required=True, default=None)
     rec_books = columns.List(value_type=columns.Text)
     state = columns.Boolean(default=False)
-    ip = columns.Text(default=None)
     agent = columns.Text(default=None)
 
     @classmethod
     def find_by_ip(cls, ip: str):
-        return cls.objects.filter(ip__contains=ip).allow_filtering()
+        return cls.objects(ip=ip)
 
     @classmethod
     def find_all(cls):
@@ -28,7 +28,7 @@ class BooksModel(Model):
     
     @classmethod
     def find_by_book(cls, book: str):
-        return cls.objects.filter(book__contains=book).allow_filtering()
+        return cls.objects(book=book)
 
 """class address(UserType):
     street = columns.Text()
