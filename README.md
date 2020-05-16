@@ -1,2 +1,48 @@
-# book-recommend-web-service
-This project is a rest-api that recommend books for user
+# Book Recommend System
+
+This recommender web service is build with flask, that for posted book will suggest similar books. The dataset is from goodreads.
+
+## Installation
+
+Starting app:
+
+```bash
+docker-compose up --build
+```
+Shutting it down:
+
+```bash
+docker-compose down -v
+```
+
+## Usage
+
+First get token:
+post request with "username" and "password"
+```http
+http://0.0.0.0:8000/register
+```
+copy the token after registration.
+Add "api-token" with value of token in header.
+Get request to get recommendation:
+```http
+http://0.0.0.0:8000/recommend/the stepford wives/20
+```
+To get serach history:
+Get request:
+```http
+http://0.0.0.0:8000/
+```
+
+## Results
+recommended books:
+![alt text](https://github.com/arezamoosavi/book-recommend-web-service/blob/master/result.jpeg?raw=true)
+
+## Tools
+ML: Pandas, Sklearn
+
+Tasks: Celery, rabbitmq, redis
+
+Web: flask, cassandra, nginx, gunicorn
+
+Build: docker, docker-compose
