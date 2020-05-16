@@ -1,5 +1,6 @@
 DEBUG=True
 SECRET_KEY=a-very-secret-key-with => :-))^_^
+JWT_SECRET_KEY=rhRTH4yh4$6Y^3#$2#jj^*9
 
 CASSANDRA=cassandra:9042
 H_CASSANDRA=cassandra

@@ -20,7 +20,7 @@ class BooksModel(Model):
 
     @classmethod
     def find_by_ip(cls, ip: str):
-        return cls.objects.filter(ip=ip)
+        return cls.objects.filter(ip__contains=ip).allow_filtering()
 
     @classmethod
     def find_all(cls):
@@ -28,17 +28,7 @@ class BooksModel(Model):
     
     @classmethod
     def find_by_book(cls, book: str):
-        return cls.objects.filter(book=book).first()
-    
-    @property
-    def get_data(self):
-        return {
-            'id': str(self.id),
-            'book': self.book,
-            'authors': self.authors,
-            'rec_books': self.rec_books
-        }
-
+        return cls.objects.filter(book__contains=book).allow_filtering()
 
 """class address(UserType):
     street = columns.Text()
