@@ -2,10 +2,6 @@ from pickle import load
 from pandas import read_csv
 
 
-with open("app/Utils/recUtils/sim_matrix.pickle", "rb") as handle:
-    cosine_sim_corpus = load(handle)
-
-
 def load_data():
 
     return read_csv("app/Utils/recUtils/goodreads_data.csv", index_col=0)

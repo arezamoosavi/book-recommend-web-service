@@ -1,4 +1,18 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
+
 from app.Utils.recUtils.builder import *
+
+tf_corpus = TfidfVectorizer(
+    analyzer="word", ngram_range=(1, 2), min_df=0, stop_words="english"
+)
+tfidf_matrix_corpus = tf_corpus.fit_transform(books_df["corpus"])
+cosine_sim_corpus = linear_kernel(tfidf_matrix_corpus, tfidf_matrix_corpus)
+
+
+# with open("app/Utils/recUtils/sim_matrix.pickle", "rb") as handle:
+#     cosine_sim_corpus = load(handle)
 
 
 def recBooks(book, k):
