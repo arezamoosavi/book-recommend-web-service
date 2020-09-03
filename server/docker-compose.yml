@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   static_files:
@@ -24,12 +24,11 @@ services:
       - node_1
     restart: unless-stopped
 
-    
   node_0:
     image: cassandra:2.2.0
     restart: unless-stopped
     ports:
-      - '10042:9042'
+      - "10042:9042"
     environment:
       - CASSANDRA_CLUSTER_NAME=book_cluster
       - CASSANDRA_SEEDS=node_0, node_1
@@ -41,15 +40,13 @@ services:
     image: cassandra:2.2.0
     restart: unless-stopped
     ports:
-      - '11042:9042'
+      - "11042:9042"
     environment:
       - CASSANDRA_CLUSTER_NAME=book_cluster
       - CASSANDRA_SEEDS=node_0, node_1
       - CASSANDRA_LISTEN_ADDRESS=node_1
 
-  
   nginx:
-    container_name: nginx:1.18.0-alpine
     build:
       context: .
       dockerfile: ./dockerfiles/nginx/Dockerfile
@@ -81,7 +78,7 @@ services:
       - "6379:6379"
     expose:
       - "6379"
-    command: [ "redis-server", "--protected-mode", "no" ]
+    command: ["redis-server", "--protected-mode", "no"]
     hostname: redis
     restart: unless-stopped
 
