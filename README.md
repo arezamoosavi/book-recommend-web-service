@@ -46,3 +46,8 @@ Tasks: Celery, rabbitmq, redis
 Web: flask, cassandra, nginx, gunicorn
 
 Build: docker, docker-compose
+
+## Medium
+### [part1](https://medium.com/@sdamoosavi/book-recommender-web-service-ml-e79119535258)
+### [part2](https://medium.com/@sdamoosavi/book-recommender-web-service-cassandra-4a359917d713)
+### [part3](https://medium.com/@sdamoosavi/book-recommender-web-service-flask-and-celery-18c8245a257e)
