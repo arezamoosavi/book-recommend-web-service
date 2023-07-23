@@ -13,7 +13,7 @@ cqlengine==0.21.0
 
 gunicorn==20.0.4
 
-celery==4.4.2
+celery==5.2.2
 celery[redis]
 amqp
 redis
